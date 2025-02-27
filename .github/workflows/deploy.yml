@@ -29,3 +29,15 @@ jobs:
     # Paso 4: Ejecutar pruebas unitarias
     - name: Run Unit Tests
       run: npm run test:unit  # Ajusta esto a tu comando para ejecutar las pruebas
+
+    # Paso 5: Construir el proyecto
+    - name: Build Project
+      run: npm run build  # Este paso asegura que el proyecto se pueda construir
+
+    # Paso 6: Desplegar si todo pasa (opcional)
+    - name: Deploy to GitHub Pages
+      if: ${{ success() }}  # Solo se despliega si los tests y build pasan
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist  # Asegúrate de que tu build esté en este directorio
